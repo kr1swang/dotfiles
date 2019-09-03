@@ -59,6 +59,6 @@ git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.com commit
 git config --global alias.st status
-git config --global credential.helper 'cache --timeout 604800'
+git config --global credential.helper osxkeychain
 
 echo "!! Terminal Apps need 'MesloLGM Nerd Font' in order to properly display Powerline Fonts"
