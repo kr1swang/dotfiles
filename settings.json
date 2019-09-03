@@ -17,6 +17,7 @@
     "rust-client.channel": "stable",
     "rust-client.goto_def_racer_fallback": true,
     "go.testFlags": [
-        "-v"
+        "-v",
+        "-count=1"
     ]
 }
