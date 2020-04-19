@@ -1,0 +1,10 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "shift+cmd+a",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": "cargo fmt && cargo build\u000D"
+        }
+    }
+]

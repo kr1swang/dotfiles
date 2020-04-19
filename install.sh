@@ -40,7 +40,7 @@ brew cask install visual-studio-code
 
 # copy vscode settings
 mkdir -p ~/Library/Application\ Support/Code/User
-cp settings.json ~/Library/Application\ Support/Code/User/settings.json
+cp vscode/* ~/Library/Application\ Support/Code/User/
 
 # set default shell to zsh
 zsh --version
