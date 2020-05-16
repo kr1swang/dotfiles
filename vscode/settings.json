@@ -15,9 +15,11 @@
     "telemetry.enableCrashReporter": false,
     "window.zoomLevel": 0,
     "rust-client.channel": "stable",
-    "rust-client.goto_def_racer_fallback": true,
+    "rust-analyzer.inlayHints.typeHints": false,
+    "rust-analyzer.inlayHints.parameterHints": false,
     "go.testFlags": [
         "-v",
         "-count=1"
-    ]
+    ],
+    "go.useLanguageServer": true
 }
