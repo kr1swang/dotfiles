@@ -21,13 +21,13 @@ rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-andro
 rustup target add wasm32-unknown-unknown
 
 # install environment tools and languages
-brew install zsh zsh-completions kubectx hub shfmt go
+brew install zsh zsh-completions kubectx hub shfmt go tmux
 brew cask install google-cloud-sdk
 
 # install and setup antibody
 brew install getantibody/tap/antibody
 cp .zsh_plugins.txt ~/.zsh_plugins.txt
-antibody bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.sh
+antibody bundle <~/.zsh_plugins.txt >~/.zsh_plugins.sh
 antibody update
 
 # install powerlevel9k and nerdfonts
@@ -42,16 +42,20 @@ brew cask install visual-studio-code
 mkdir -p ~/Library/Application\ Support/Code/User
 cp vscode/* ~/Library/Application\ Support/Code/User/
 
-# set default shell to zsh
+# macos enable key-repeating for vscode (vim)
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+defaults delete -g ApplePressAndHoldEnabled
+
+# output version
 zsh --version
 
 # merge our zshrc contents if one already exists, otherwise just copy it over
 if [ -f ~/.zshrc ]; then
-    echo "=== Merging .zshrc Files (MIGHT REQUIRE MANUAL CLEANUP!) ==="
-    cat .zshrc | cat - ~/.zshrc > temp && rm ~/.zshrc && mv temp ~/.zshrc
+	echo "=== Merging .zshrc Files (MIGHT REQUIRE MANUAL CLEANUP!) ==="
+	cat .zshrc | cat - ~/.zshrc >temp && rm ~/.zshrc && mv temp ~/.zshrc
 else
-    echo "=== Copying .zshrc File ==="
-    cp .zshrc ~/.zshrc
+	echo "=== Copying .zshrc File ==="
+	cp .zshrc ~/.zshrc
 fi
 
 # git settings/aliases
@@ -61,4 +65,7 @@ git config --global alias.com commit
 git config --global alias.st status
 git config --global credential.helper osxkeychain
 
+cp -r .tmux.conf ~/.tmux.conf
+
 echo "!! Terminal Apps need 'MesloLGM Nerd Font' in order to properly display Powerline Fonts"
+echo "run `chsh -s /bin/zsh` to change the default macOs terminal to zsh"
