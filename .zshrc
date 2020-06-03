@@ -1,4 +1,6 @@
-##### INSTALLED BY github.com/dt665m/dotfiles #####
+# zsh configuration
+SAVEHIST=100
+HISTFILE=~/.zsh_history
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
@@ -31,9 +33,3 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%F{249}%}\u2517\uf054%{%F{default}%
 #POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} "$"%{%b%f%k%F{yellow}%} %{%f%}"
 POWERLEVEL9K_MODE='nerdfont-complete'
 source /usr/local/opt/powerlevel9k/powerlevel9k.zsh-theme
-
-# zsh configuration
-SAVEHIST=50
-HISTFILE=~/.zsh_history
-
-##### INSTALLED BY github.com/dt665m/dotfiles #####
