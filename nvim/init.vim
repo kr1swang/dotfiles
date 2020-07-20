@@ -10,7 +10,14 @@ call plug#begin()
 " Language Support
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'dense-analysis/ale'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'Shougo/echodoc.vim'
 
 " Conveniences
 Plug 'airblade/vim-rooter'
@@ -24,11 +31,13 @@ call plug#end()
 " Plugin Settings
 " ======================
 let g:deoplete#enable_at_startup = 1
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'signature'
 "let g:ale_linters = {'rust': ['analyzer']}
 
-"let g:LanguageClient_serverCommands = {
-"    \ 'rust': ['rust-analyzer'],
-"    \ }
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rust-analyzer'],
+    \ }
 
 
 " Overrides default Rg command of junegunn/fzf.  Hidden ok except .git
@@ -49,6 +58,7 @@ end
 
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 filetype plugin indent on
+set cmdheight=2 "echo docs
 set autoindent " Turns off Vim Mode Display because lightline plugin already handles it
 set nowrap
 set encoding=utf-8
