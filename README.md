@@ -2,7 +2,7 @@
 These are my dotfiles...
 
 ```
-./install.sh
+sudo ./install.sh
 ```
 
 # Post Install Setup 

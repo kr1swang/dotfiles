@@ -2,11 +2,15 @@
 set -e
 ROOT_PATH=$(pwd -P)
 
-function add_source () {
+# main() {
+
+# }
+
+add_source () {
 	echo "hello"
 }
 
-function sym_link() {
+sym_link() {
 	if [ -e "$2" ]; then
 		if [ "$(readlink "$2")" = "$1" ]; then
 			echo "Symlink skipped $1"
@@ -20,14 +24,35 @@ function sym_link() {
 	echo "Symlinked $1 to $2"
 }
 
-function install_homebrew() {
+info() {
+	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+ok() {
+	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+err() {
+	printf "\r\033[2K  [\033[0;31mERR\033[0m] $1\n"
+	exit
+}
+
+install_homebrew() {
 	if ! which brew >/dev/null 2>&1; then
 		echo "Installing homebrew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	fi
 }
 
-function install_languages() {
+install_neovim() {
+	brew install neovim ripgrep fzf
+	sym_link $ROOT_DIR/nvim ~/.config/nvim 
+	nvim --headless +PlugInstall +PlugClean +PlugUpdate +UpdateRemotePlugins +qall
+	# undo history
+	mkdir -p ~/.vimdid 
+}
+
+install_languages() {
 	brew install go
 
 	if ! which rustup >/dev/null 2>&1; then
@@ -45,7 +70,13 @@ function install_languages() {
 	fi
 }
 
-function install_shell() {
+install_shell() {
+	# install alacritty terminal and terminfo
+	brew cask install alacritty
+	curl -o /Applications/Alacritty.app/Contents/Resources/alacritty.info https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info
+	tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
+	sym_link $ROOT_PATH/.alacritty ~/.alacritty
+
 	# install environment tools and languages
 	brew install zsh zsh-completions 
 	chsh -s /usr/local/bin/zsh
@@ -58,26 +89,28 @@ function install_shell() {
 	# install powerlevel9k and nerdfonts
 	brew tap sambadevi/powerlevel9k
 	brew install powerlevel9k
-	brew tap caskroom/fonts
-	brew cask install font-meslo-nerd-font
+	brew tap homebrew/cask-fonts
+	brew cask install font-meslolg-nerd-font
+	brew cask install font-fira-code-nerd-font
 	echo "!! Terminal Apps need 'MesloLGM Nerd Font' in order to properly display Powerline Fonts"
 }
 
-function install_tools() {
+install_tools() {
 	brew install kubectx hub
 	brew cask install google-cloud-sdk
 
-	brew cask install iterm2
 	brew cask install visual-studio-code
-	rm -rf ~/Library/Application\ Support/Code/User 
-	mkdir -p ~/Library/Application\ Support/Code
+	rm -rf ~/Library/Application\ Support/Code/User/keybindings.json
+	rm -rf ~/Library/Application\ Support/Code/User/settings.json
+	mkdir -p ~/Library/Application\ Support/Code/User
+	cp vscode/* ~/Library/Application\ Support/Code/User/
 }
 
-function make_links() {
-	sym_link $ROOT_PATH/vscode ~/Library/Application\ Support/Code/User 
+make_links() {
+	sym_link $ROOT_PATH/.tmux.conf ~/.tmux.conf
 }
 
-function setup_git() {
+setup_git() {
 	# git settings/aliases
 	git config --global alias.co checkout
 	git config --global alias.br branch
@@ -95,7 +128,10 @@ function setup_git() {
 	fi
 }
 
-setup_git
+# setup_git
+
+make_links
+
 # # merge our zshrc contents if one already exists, otherwise just copy it over
 # if [ -f ~/.zshrc ]; then
 #     echo "=== Merging .zshrc Files (MIGHT REQUIRE MANUAL CLEANUP!) ==="

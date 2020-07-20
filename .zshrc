@@ -1,3 +1,7 @@
+# Vim Mods https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27 
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # zsh configuration
 SAVEHIST=100
 HISTFILE=~/.zsh_history
@@ -5,6 +9,12 @@ HISTFILE=~/.zsh_history
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin:/usr/local/bin
 export ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
+
+# keys
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+# bindkey "^[a" beginning-of-line
+# bindkey "^[e" end-of-line
 
 # import plugins
 source ~/.zsh_plugins.sh
