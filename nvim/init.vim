@@ -9,18 +9,11 @@ let mapleader=" "
 call plug#begin()
 
 " Language Support
-function! InstallCoqDeps(info)
-	if a:info.status == 'installed' || a:info.force
-		call coc#util#install()
-		let extensions = [
-                        \ 'coc-json',
-                        \ ]
-            	for ext in extensions
-                	call coc#add_extension(ext)
-            	endfor
-        endif
-endfunction
-Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': function('InstallCoqDeps')}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 
 "Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 "Plug 'dense-analysis/ale'
@@ -38,6 +31,9 @@ Plug 'airblade/vim-rooter'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -72,6 +68,7 @@ end
 
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 filetype plugin indent on
+set updatetime=250 "better performance according to CoC
 set cmdheight=2 "echo docs
 set autoindent " Turns off Vim Mode Display because lightline plugin already handles it
 set nowrap

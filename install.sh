@@ -2,54 +2,64 @@
 set -e
 ROOT_PATH=$(pwd -P)
 
-# main() {
+main() {
+	downloader --check
 
-# }
+	get_arch
+	ARCH="$RETVAL"
 
-add_source () {
-	echo "hello"
-}
-
-sym_link() {
-	if [ -e "$2" ]; then
-		if [ "$(readlink "$2")" = "$1" ]; then
-			echo "Symlink skipped $1"
-			return 0
-		else
-			mv "$2" "$2.bak"
-			echo "Symlink moved $2 to $2.bak"
-		fi
-	fi
-	ln -sf "$1" "$2"
-	echo "Symlinked $1 to $2"
-}
-
-info() {
-	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
-}
-
-ok() {
-	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-err() {
-	printf "\r\033[2K  [\033[0;31mERR\033[0m] $1\n"
-	exit
+	#install_homebrew
+	#install_terminal
+	install_neovim
 }
 
 install_homebrew() {
 	if ! which brew >/dev/null 2>&1; then
-		echo "Installing homebrew"
+		info "Installing homebrew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	fi
 }
 
+install_terminal() {
+	# install alacritty terminal and terminfo
+	brew cask install alacritty
+	ensure downloader https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info /Applications/Alacritty.app/Contents/Resources/alacritty.info
+	tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
+	info "configuring terminal"
+	sym_link $ROOT_PATH/.alacritty ~/.alacritty
+	if [[ $ARCH == *"darwin"* ]]; then
+		info "macOs detected, 'open' alacritty in finder to seed permissions"
+		open /Applications/Alacritty.app/Contents/MacOS/
+	fi
+}
+
+install_shell() {
+	# install environment tools and languages
+	brew install zsh zsh-completions
+	info "configuring shell"
+	chsh -s /usr/local/bin/zsh
+
+	# install and setup antibody zsh plugin bundler
+	brew install getantibody/tap/antibody
+	antibody bundle <.zsh_plugins.txt >~/.zsh_plugins.sh
+	antibody update
+
+	# install powerlevel9k and nerdfonts
+	brew tap sambadevi/powerlevel9k
+	brew tap homebrew/cask-fonts
+
+	brew install powerlevel9k
+	brew cask install font-meslolg-nerd-font
+	brew cask install font-fira-code-nerd-font
+}
+
 install_neovim() {
 	brew install neovim ripgrep fzf
-	sym_link $ROOT_DIR/nvim ~/.config/nvim 
+	info "configuring neovim"
+	sym_link $ROOT_PATH/nvim ~/.config/nvim
 	nvim --headless +PlugInstall +PlugClean +PlugUpdate +UpdateRemotePlugins +qall
-	# undo history
-	mkdir -p ~/.vimdid 
+	# undo history path
+	mkdir -p ~/.vimdid
 }
 
 install_languages() {
@@ -62,37 +72,12 @@ install_languages() {
 
 		# Rust toolchains and commands
 		rustup component add clippy
-		rustup target add aarch64-apple-ios armv7-apple-ios armv7s-apple-ios x86_64-apple-ios i386-apple-ios
+		rustup target add aarch64-apple-ios armv7-apple-ios x86_64-apple-ios
 		rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
 		rustup target add wasm32-unknown-unknown
 	else
 		rustup update
 	fi
-}
-
-install_shell() {
-	# install alacritty terminal and terminfo
-	brew cask install alacritty
-	curl -o /Applications/Alacritty.app/Contents/Resources/alacritty.info https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info
-	tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
-	sym_link $ROOT_PATH/.alacritty ~/.alacritty
-
-	# install environment tools and languages
-	brew install zsh zsh-completions 
-	chsh -s /usr/local/bin/zsh
-
-	# install and setup antibody zsh plugin bundler
-	brew install getantibody/tap/antibody
-	antibody bundle < .zsh_plugins.txt > ~/.zsh_plugins.sh
-	antibody update
-
-	# install powerlevel9k and nerdfonts
-	brew tap sambadevi/powerlevel9k
-	brew install powerlevel9k
-	brew tap homebrew/cask-fonts
-	brew cask install font-meslolg-nerd-font
-	brew cask install font-fira-code-nerd-font
-	echo "!! Terminal Apps need 'MesloLGM Nerd Font' in order to properly display Powerline Fonts"
 }
 
 install_tools() {
@@ -107,7 +92,7 @@ install_tools() {
 }
 
 make_links() {
-	sym_link $ROOT_PATH/.tmux.conf ~/.tmux.conf
+	sym_link $ROOT_PATH/.tmux.conf ~/
 }
 
 setup_git() {
@@ -128,16 +113,95 @@ setup_git() {
 	fi
 }
 
-# setup_git
+## Utils
 
-make_links
+info() {
+	printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
 
-# # merge our zshrc contents if one already exists, otherwise just copy it over
-# if [ -f ~/.zshrc ]; then
-#     echo "=== Merging .zshrc Files (MIGHT REQUIRE MANUAL CLEANUP!) ==="
-#     cat .zshrc | cat - ~/.zshrc > temp && rm ~/.zshrc && mv temp ~/.zshrc
-# else
-#     echo "=== Copying .zshrc File ==="
-#     cp .zshrc ~/.zshrc
-# fi
+ok() {
+	printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
 
+err() {
+	printf "\r\033[2K  [\033[0;31mERR\033[0m] $1\n"
+	exit
+}
+
+ensure() {
+	if ! "$@"; then err "command failed: $*"; fi
+}
+
+require() {
+	if ! check_cmd "$1"; then
+		err "need '$1' (command not found)"
+	fi
+}
+
+check_cmd() {
+	command -v "$1" >/dev/null 2>&1
+}
+
+append_not_exists() {
+	if [ -f "$2" ] && grep -q "$1" "$2"; then
+		info "PATH exists in \'$2\'"
+		return
+	fi
+
+	info "\'$1\' >> \'$2\'"
+	echo "$1" >>"$2"
+}
+
+sym_link() {
+	if [[ -f $2 ]]; then
+		if [ -e "$2" ]; then
+			if [ "$(readlink "$2")" = "$1" ]; then
+				info "Symlink skipped $1"
+				return 0
+			else
+				mv "$2" "$2.bak"
+				info "Symlink moved $2 to $2.bak"
+			fi
+		fi
+	fi
+	ln -sf "$1" "$2"
+	info "Symlinked $1 to $2"
+}
+
+get_arch() {
+	local _ostype _cputype
+
+	if [ "$OSTYPE" == "linux-gnu" ]; then
+		_ostype=unknown-linux-gnu
+	elif [[ "$OSTYPE" == "darwin"* ]]; then
+		_ostype=apple-darwin
+	else
+		err "$OSTYPE currently unsupported"
+	fi
+
+	_cputype=$(uname -m)
+	[ $_cputype == "x86_64" ] || err "$_cputype currently unsupported"
+
+	RETVAL=$_cputype-$_ostype
+}
+
+downloader() {
+	local _dld
+	if check_cmd curl; then
+		_dld=curl
+	elif check_cmd wget; then
+		_dld=wget
+	else
+		_dld='curl or wget' # to be used in error message of require
+	fi
+
+	if [ "$1" = --check ]; then
+		require "$_dld"
+	elif [ "$_dld" = curl ]; then
+		curl --proto '=https' --tlsv1.2 --silent --show-error --fail --location "$1" --output "$2"
+	elif [ "$_dld" = wget ]; then
+		wget --https-only --secure-protocol=TLSv1_2 "$1" -O "$2"
+	fi
+}
+
+main "$@"
