@@ -1,3 +1,4 @@
+
 noremap <SPACE> <nop>
 let mapleader=" "
 
@@ -8,16 +9,29 @@ let mapleader=" "
 call plug#begin()
 
 " Language Support
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'dense-analysis/ale'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'Shougo/echodoc.vim'
+function! InstallCoqDeps(info)
+	if a:info.status == 'installed' || a:info.force
+		call coc#util#install()
+		let extensions = [
+                        \ 'coc-json',
+                        \ ]
+            	for ext in extensions
+                	call coc#add_extension(ext)
+            	endfor
+        endif
+endfunction
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': function('InstallCoqDeps')}
+
+"Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+"Plug 'dense-analysis/ale'
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"else
+"  Plug 'Shougo/deoplete.nvim'
+"  Plug 'roxma/nvim-yarp'
+"  Plug 'roxma/vim-hug-neovim-rpc'
+"endif
+"Plug 'Shougo/echodoc.vim'
 
 " Conveniences
 Plug 'airblade/vim-rooter'
@@ -30,14 +44,14 @@ call plug#end()
 " ======================
 " Plugin Settings
 " ======================
-let g:deoplete#enable_at_startup = 1
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
-"let g:ale_linters = {'rust': ['analyzer']}
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
-    \ }
+"let g:deoplete#enable_at_startup = 1
+"let g:echodoc#enable_at_startup = 1
+"let g:echodoc#type = 'signature'
+""let g:ale_linters = {'rust': ['analyzer']}
+"
+"let g:LanguageClient_serverCommands = {
+"    \ 'rust': ['rust-analyzer'],
+"    \ }
 
 
 " Overrides default Rg command of junegunn/fzf.  Hidden ok except .git
