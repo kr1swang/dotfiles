@@ -1,19 +1,14 @@
-" make spacebar to Leader
+" use ':verbose imap <{some_key}>' to check if a key is bound
+
+" Make spacebar to Leader
 noremap <space> <nop>
 let mapleader=" "
 
+" Turn off search highlights with Ctrl+C twice
+noremap <C-c><C-c> :nohlsearch<CR>
 
-" Jump between files 
+" Jump between last two buffers 
 nnoremap <leader><leader> <c-^>
-
-" Rg shortcut 
-noremap <leader>s :Rg<CR>
-" use this to search files rg --files --hidden --follow --g '!.git'
-
-
-" Open hotkeys
-map <C-p> :Files<CR>
-nmap <leader>; :Buffers<CR>
 
 " No arrow keys --- force yourself to use the home row
 nnoremap <up> <nop>
@@ -42,3 +37,17 @@ onoremap <C-c> <Esc>
 lnoremap <C-c> <Esc>
 tnoremap <C-c> <Esc>
 
+" Leader Navigation for split panes
+nnoremap <leader>j <C-w><C-j>
+nnoremap <leader>k <C-w><C-k>
+nnoremap <leader>h <C-w><C-h>
+nnoremap <leader>l <C-w><C-l>
+
+" ----------------------------
+"       Plugin Specific 
+" ----------------------------
+
+" FZF Search Windows 
+map <C-p> :Files<CR>
+nmap <leader>; :Buffers<CR>
+noremap <leader>s :Rg<CR>

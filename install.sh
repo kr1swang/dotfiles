@@ -26,10 +26,10 @@ install_terminal() {
 	ensure downloader https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info /Applications/Alacritty.app/Contents/Resources/alacritty.info
 	tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
 	info "configuring terminal"
-	sym_link $ROOT_PATH/.alacritty ~/.alacritty
+	sym_link $ROOT_PATH/.alacritty.yml ~/.alacritty.yml
 	if [[ $ARCH == *"darwin"* ]]; then
 		info "macOs detected, 'open' alacritty in finder to seed permissions"
-		open /Applications/Alacritty.app/Contents/MacOS/
+		open /Applications
 	fi
 }
 
