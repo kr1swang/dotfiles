@@ -45,8 +45,13 @@ call plug#end()
 " Show Buffers on the top
 let g:airline#extensions#tabline#enabled = 1
 
-let g:seoul256_background = 234
+" Seoul Theme Mods
+let g:seoul256_background = 235
 colo seoul256
+" unlet! g:indentLine_color_term g:indentLine_color_gui
+" hi Conceal ctermfg=245
+
+" Airline Settings 
 let g:airline_theme = 'bubblegum'
 let g:airline_powerline_fonts = 1
 "let g:deoplete#enable_at_startup = 1

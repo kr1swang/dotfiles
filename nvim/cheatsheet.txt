@@ -1,0 +1,88 @@
+*mycheats.txt*
+*mycheats*
+
+Cheatsheet for my custom Neovim Setup 
+
+===============================================================================
+CONTENTS
+
+	1. Navigation.....................................|mycheats-navigation|
+	2. Hotkeys...........................................|mycheats-hotkeys|
+	3. Git...................................................|mycheats-git|
+	4. Tmux.................................................|mycheats-tmux|
+
+===============================================================================
+1. Navigation                                             *mycheats-navigation*
+
+===============================================================================
+2. Hotkeys                                                   *mycheats-hotkeys*
+
+Vim Basics:
+	- "y+ will Yank selection to OS Clipboard
+	- "+p will Paste from OS Clipboard
+	- ~ changes the case of letter under cursor
+	- <C-]> to jump to definition
+	- <C-o> to go back after jump
+	- dap will delete the current paragraph from within
+	- d} will delete from the cursor to the end of the paragraph
+	- d{ will delete from the cursor to the beginning of the paragraph
+	- :e ${file_name} to create a new buffer
+	- <leader><leader> switch between current and previous buffer
+
+Plugin/vim-commentary:
+	- gcc to comment/uncomment a line (can prefix with count)
+	- gc is the same as delete
+	- gcap deletes the whole paragraph from within 
+	- selection + gc to comment/uncomment a selection
+
+Plugin/vim-surround:
+
+Plugin/fzf:
+	- <leader>s ripgrep search
+	- <leader>p fzf file search
+	- <leader>; fzf buffer list
+	- <C-v> on file search will open the file in a split pane
+
+Plugin/coc
+	- <leader>gd code diagnostics
+	- <leader>gp next diagnostic
+	- <leader>gn previous diagnostic
+
+===============================================================================
+3. Git                                                           *mycheats-git*
+
+Vim-fugitive
+http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
+
+	- :Gdiffsplit! for a 3 way diff on merge conflicts
+	- :diffget //2 fetches selected conflict from left
+	- :diffget //3 fetches selected conflict from right
+	- :Git and g? to see options
+	- :Git and - to toggle stage/unstage
+	- :Git and then X to discard change on a file
+
+===============================================================================
+4. Tmux                                                         *mycheats-tmux*
+
+Basics:
+	- tmux new -s ${session_name}
+	- tmux kill-ses -t ${session_name}
+	- tmux ls or <prefix>s
+	- tmux a -t ${session_name}
+	- <prefix>d detach from session
+	- <prefix> is mapped to <C-space>
+	- <prefix>: opens command bar
+	- :setw synchronize-panes on/off 
+	
+Windows:
+	- <prefix>c create new window
+	- <prefix>, rename window
+	- <prefix>n next window
+	- <prefix>b previous window
+	- <prefix>{0..9} switch to window
+	- <prefix>& close window
+
+Panes:
+	- <prefix>\ split vertically
+	- <prefix><S-\> split horizontally
+	- <prefix>{arrow} move panes

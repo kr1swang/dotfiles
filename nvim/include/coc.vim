@@ -1,13 +1,28 @@
 set tagfunc=CocTagFunc
 
 " Goto Navigation
-nmap <Leader>gt <Plug>(coc-type-definition)
-nmap <Leader>gre <Plug>(coc-references)
-nmap <Leader>grn <Plug>(coc-rename)
-nmap <Leader>gd <Plug>(coc-diagnostic-info)
-nmap <Leader>gp <Plug>(coc-diagnostic-prev)
-nmap <Leader>gn <Plug>(coc-diagnostic-next)
+nmap <leader>gt <Plug>(coc-type-definition)
+nmap <leader>gre <Plug>(coc-references)
+nmap <leader>grn <Plug>(coc-rename)
+nmap <leader>gd <Plug>(coc-diagnostic-info)
+nmap <leader>gp <Plug>(coc-diagnostic-prev)
+nmap <leader>gn <Plug>(coc-diagnostic-next)
 
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+" list commands available
+nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+" manage extensions
+nnoremap <silent> <leader>cx  :<C-u>CocList extensions<cr>
+" Resume latest coc list
+nnoremap <silent> <leader>cl  :<C-u>CocListResume<CR>
+" restart CoC
+nnoremap <silent> <leader>cR  :<C-u>CocRestart<CR>
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
