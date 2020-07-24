@@ -36,6 +36,13 @@ Plugin/vim-commentary:
 	- selection + gc to comment/uncomment a selection
 
 Plugin/vim-surround:
+	- cs{current}{into} to change surrounding sections
+	- cs'" changes the enclosing single quote to double quote
+	- cs'<p> changes the enclosing single quote to <p>
+	- ds{symbol} removes the enclosing symbols
+	- yss{symbol} add enclosing symbol to whole line
+	- yssb shorthand for yss)
+	- ysiw{symbol} add enclosing symbol to word
 
 Plugin/fzf:
 	- <leader>s ripgrep search
@@ -81,8 +88,10 @@ Windows:
 	- <prefix>b previous window
 	- <prefix>{0..9} switch to window
 	- <prefix>& close window
+	- <prefix>: swap-window -s 2 -t 1  (s is source, t is destination)
 
 Panes:
 	- <prefix>\ split vertically
 	- <prefix><S-\> split horizontally
 	- <prefix>{arrow} move panes
+

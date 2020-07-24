@@ -32,10 +32,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Editor Tools
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'junegunn/vim-peekaboo'
+Plug 'tpope/vim-fugitive'    " Git Plugin
+Plug 'tpope/vim-surround'    " Surround Editing Tool
+Plug 'tpope/vim-commentary'  " Commenting
+Plug 'tpope/vim-repeat'      " . Repeat for certain plugins
+Plug 'junegunn/vim-peekaboo' " Register Visualizer  
 
 call plug#end()
 
