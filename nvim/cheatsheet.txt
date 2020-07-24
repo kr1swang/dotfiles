@@ -43,6 +43,7 @@ Plugin/vim-surround:
 	- yss{symbol} add enclosing symbol to whole line
 	- yssb shorthand for yss)
 	- ysiw{symbol} add enclosing symbol to word
+	- <S-s>{symbol} in visual mode to enclose a selected block 
 
 Plugin/fzf:
 	- <leader>s ripgrep search
