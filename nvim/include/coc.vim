@@ -7,6 +7,7 @@ nmap <leader>grn <Plug>(coc-rename)
 nmap <leader>gd <Plug>(coc-diagnostic-info)
 nmap <leader>gp <Plug>(coc-diagnostic-prev)
 nmap <leader>gn <Plug>(coc-diagnostic-next)
+nmap <leader>gl <Plug>(coc-codelens-action)
 
 " Mappings using CoCList:
 " Show all diagnostics.

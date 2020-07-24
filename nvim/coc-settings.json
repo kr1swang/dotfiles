@@ -1,3 +1,4 @@
 {
+	"codeLens.enable": true,
 	"rust-analyzer.inlayHints.chainingHints": true
 }
