@@ -65,3 +65,4 @@ if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
   set termguicolors
 endif
 
+" solarized, woodland, twilight, -gruvbox-dark-pale <--- things to try
