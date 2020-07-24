@@ -60,13 +60,14 @@ Plugin/coc
 
 Vim-fugitive
 http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
-
-	- :Gdiffsplit! for a 3 way diff on merge conflicts
-	- :diffget //2 fetches selected conflict from left
-	- :diffget //3 fetches selected conflict from right
 	- :Git and g? to see options
-	- :Git and - to toggle stage/unstage
-	- :Git and then X to discard change on a file
+	- :G is shorthand for :Git
+	- :G and - to toggle stage/unstage
+	- :G and X to discard change on a file
+	- :G and gx to quit
+	- :Gdiffsplit! for a 3 way diff on merge conflicts
+		- :diffget //2 fetches selected conflict from left
+		- :diffget //3 fetches selected conflict from right
 
 ===============================================================================
 4. Tmux                                                         *mycheats-tmux*
