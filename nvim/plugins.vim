@@ -5,6 +5,7 @@ Plug 'junegunn/seoul256.vim'
 
 " Language Support
 Plug 'rust-lang/rust.vim'
+"Plug 'mhinz/vim-crates'
 
 " Coc (for now)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -43,6 +44,10 @@ call plug#end()
 " ======================
 " Plugin Settings
 " ======================
+" if has('nvim')
+"   autocmd BufRead Cargo.toml call crates#toggle()
+" endif
+
 " Show Buffers on the top
 let g:airline#extensions#tabline#enabled = 1
 
