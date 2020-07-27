@@ -18,7 +18,7 @@ CONTENTS
 2. Hotkeys                                                   *mycheats-hotkeys*
 
 Vim Basics:
-	- "y+ will Yank selection to OS Clipboard
+	- "*y will Yank selection to OS Clipboard
 	- "+p will Paste from OS Clipboard
 	- ~ changes the case of letter under cursor
 	- <C-]> to jump to definition
@@ -28,6 +28,7 @@ Vim Basics:
 	- d{ will delete from the cursor to the beginning of the paragraph
 	- :e ${file_name} to create a new buffer
 	- <leader><leader> switch between current and previous buffer
+	- <C-\><C-n> in terminal mode exits into "vim mode"
 
 Plugin/vim-commentary:
 	- gcc to comment/uncomment a line (can prefix with count)
