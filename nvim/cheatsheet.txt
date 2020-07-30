@@ -56,6 +56,7 @@ Plugin/coc
 	- <leader>gd code diagnostics
 	- <leader>gp next diagnostic
 	- <leader>gn previous diagnostic
+	- <S-k> show documentation at cursor
 
 ===============================================================================
 3. Git                                                           *mycheats-git*

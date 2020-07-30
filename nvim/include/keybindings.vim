@@ -13,8 +13,9 @@ nnoremap <leader><leader> <c-^>
 " No arrow keys --- force yourself to use the home row
 nnoremap <up> <nop>
 nnoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
+" for CoC, editing up down is enabled
+" inoremap <up> <nop>
+" inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
