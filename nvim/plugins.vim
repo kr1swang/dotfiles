@@ -69,9 +69,28 @@ let g:airline_powerline_fonts = 1
 "    \ 'rust': ['rust-analyzer'],
 "    \ }
 
+" FZF settings
+" search history
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Overrides default Rg command of junegunn/fzf.  Hidden is searchable except .git
 command! -bang -nargs=* Rg
 	\ call fzf#vim#grep(
-	\ "rg --column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git' -- "
+	\ "rg --column --line-number --no-heading --color=always --smart-case --hidden -g '!Cargo.lock' -g '!yarn.lock' --glob '!.git' -- "
 	\ .shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+
+" allow ctrl-a to select all in RG search, and ctrl-q to save to quickfix
+" list.  This will allow specific files to be issued commands
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+  \ 'ctrl-q': function('s:build_quickfix_list'),
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'

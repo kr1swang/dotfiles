@@ -29,6 +29,9 @@ Vim Basics:
 	- :e ${file_name} to create a new buffer
 	- <leader><leader> switch between current and previous buffer
 	- <C-\><C-n> in terminal mode exits into "vim mode"
+	- quickfix :cfdo and :cdo
+		:ccl closes quickfix window
+	- :cfdo {command} will execute a command to quickfix list
 
 Plugin/vim-commentary:
 	- gcc to comment/uncomment a line (can prefix with count)
@@ -48,8 +51,10 @@ Plugin/vim-surround:
 
 Plugin/fzf:
 	- <leader>s ripgrep search
+		- <C-a> to select all, <C-q> to save selection to vim quickfix list
 	- <leader>p fzf file search
 	- <leader>; fzf buffer list
+	- <C-p> or <C-n> to cycle search history 
 	- <C-v> on file search will open the file in a split pane
 
 Plugin/coc
@@ -57,6 +62,9 @@ Plugin/coc
 	- <leader>gp next diagnostic
 	- <leader>gn previous diagnostic
 	- <S-k> show documentation at cursor
+
+Plugin/vim-peekaboo
+	- if the window size bugs out, use <C-w>_ to reset the window
 
 ===============================================================================
 3. Git                                                           *mycheats-git*
