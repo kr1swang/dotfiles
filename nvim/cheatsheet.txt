@@ -18,6 +18,9 @@ CONTENTS
 2. Hotkeys                                                   *mycheats-hotkeys*
 
 Vim Basics:
+	- diw will delete word
+	- yiw will yank the word to register
+	- viw will select the word
 	- "*y will Yank selection to OS Clipboard
 	- "+p will Paste from OS Clipboard
 	- ~ changes the case of letter under cursor

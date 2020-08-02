@@ -8,7 +8,7 @@ let mapleader=" "
 noremap <C-c><C-c> :nohlsearch<CR>
 
 " Jump between last two buffers 
-nnoremap <leader><leader> <c-^>
+nnoremap <leader><leader> <C-^>
 
 " No arrow keys --- force yourself to use the home row
 nnoremap <up> <nop>
