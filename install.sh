@@ -8,9 +8,13 @@ main() {
 	get_arch
 	ARCH="$RETVAL"
 
-	#install_homebrew
-	#install_terminal
+	install_homebrew
+	install_terminal
+	install_shell
 	install_neovim
+	install_languages
+	install_tools
+	setup_git
 }
 
 install_homebrew() {
@@ -63,7 +67,7 @@ install_neovim() {
 }
 
 install_languages() {
-	brew install go
+	brew install go node yarn
 
 	if ! which rustup >/dev/null 2>&1; then
 		curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -89,10 +93,6 @@ install_tools() {
 	rm -rf ~/Library/Application\ Support/Code/User/settings.json
 	mkdir -p ~/Library/Application\ Support/Code/User
 	cp vscode/* ~/Library/Application\ Support/Code/User/
-}
-
-make_links() {
-	sym_link $ROOT_PATH/.tmux.conf ~/
 }
 
 setup_git() {
