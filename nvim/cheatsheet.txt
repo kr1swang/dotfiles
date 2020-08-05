@@ -24,6 +24,7 @@ Vim Basics:
 	- "*y will Yank selection to OS Clipboard
 	- "+p will Paste from OS Clipboard
 	- ~ changes the case of letter under cursor
+	- <C-w>v split current window vertically
 	- <C-]> to jump to definition
 	- <C-o> to go back after jump
 	- dap will delete the current paragraph from within
@@ -32,9 +33,9 @@ Vim Basics:
 	- :e ${file_name} to create a new buffer
 	- <leader><leader> switch between current and previous buffer
 	- <C-\><C-n> in terminal mode exits into "vim mode"
-	- quickfix :cfdo and :cdo
-		:ccl closes quickfix window
-	- :cfdo {command} will execute a command to quickfix list
+	- :copen opens quickfix list
+		- :ccl closes quickfix window
+		- :cfdo {command} will execute a command to quickfix list
 
 Plugin/vim-commentary:
 	- gcc to comment/uncomment a line (can prefix with count)
@@ -95,6 +96,7 @@ Basics:
 	- <prefix> is mapped to <C-space>
 	- <prefix>: opens command bar
 	- :setw synchronize-panes on/off 
+	- <prefix>$ to rename session
 	
 Windows:
 	- <prefix>c create new window
