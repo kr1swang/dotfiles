@@ -5,7 +5,9 @@ Plug 'junegunn/seoul256.vim'
 
 " Language Support
 Plug 'rust-lang/rust.vim'
-"Plug 'mhinz/vim-crates'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'mhinz/vim-crates'
 
 " Coc (for now)
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -13,6 +15,10 @@ Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-styled-components', {'do': 'yarn install --frozen-lockfile'}
 
 "Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 "Plug 'dense-analysis/ale'
@@ -33,11 +39,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Editor Tools
+Plug 'jiangmiao/auto-pairs'  " auto add paris for braces, parenthesis, etc
 Plug 'tpope/vim-fugitive'    " Git Plugin
 Plug 'tpope/vim-surround'    " Surround Editing Tool
 Plug 'tpope/vim-commentary'  " Commenting
 Plug 'tpope/vim-repeat'      " . Repeat for certain plugins
-Plug 'junegunn/vim-peekaboo' " Register Visualizer  
+Plug 'junegunn/vim-peekaboo' " Register Visualizer
 
 call plug#end()
 

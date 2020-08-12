@@ -18,24 +18,37 @@ CONTENTS
 2. Hotkeys                                                   *mycheats-hotkeys*
 
 Vim Basics:
-	- diw will delete word
-	- yiw will yank the word to register
-	- viw will select the word
-	- "*y will Yank selection to OS Clipboard
-	- "+p will Paste from OS Clipboard
+	- / triggers search
+	- * search current selection
+	- diw delete inner word
+	- yiw yank inner word to register
+	- viw visual select inner word
+	- ciw change inner word (basically clear word and enter edit mode)
+	- "*y Yank selection to OS Clipboard
+	- "+p Paste from OS Clipboard
 	- ~ changes the case of letter under cursor
 	- <C-w>v split current window vertically
 	- <C-]> to jump to definition
 	- <C-o> to go back after jump
-	- dap will delete the current paragraph from within
-	- d} will delete from the cursor to the end of the paragraph
-	- d{ will delete from the cursor to the beginning of the paragraph
+	- dap delete the current paragraph from within
+	- d}  delete from the cursor to the end of the paragraph
+	- d{  delete from the cursor to the beginning of the paragraph
 	- :e ${file_name} to create a new buffer
 	- <leader><leader> switch between current and previous buffer
 	- <C-\><C-n> in terminal mode exits into "vim mode"
 	- :copen opens quickfix list
 		- :ccl closes quickfix window
 		- :cfdo {command} will execute a command to quickfix list
+
+Vim Visual Mode:
+	- v to enter manually controlled visual mode
+	- <S-v> visual line selection mode
+	- <C-v> allows visual mode with cursor (for multi line editing)
+	  - <S-i> to edit multiple lines, <Esc> to finish
+
+Vim Debugging:
+	- :set ${variable}? outputs value of the setting
+	- :verbose set ${variable}? outputs where the variable was set
 
 Plugin/vim-commentary:
 	- gcc to comment/uncomment a line (can prefix with count)

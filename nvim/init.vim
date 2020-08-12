@@ -5,6 +5,7 @@
 runtime! plugins.vim
 runtime! include/keybindings.vim
 runtime! include/rust.vim
+runtime! include/ts_js.vim
 runtime! include/coc.vim
 
 " todo, https://tinyheero.github.io/2017/11/04/vim-cheatsheet.html add
