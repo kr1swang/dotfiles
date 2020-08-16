@@ -31,8 +31,8 @@ Vim Basics:
 	- <C-]> to jump to definition
 	- <C-o> to go back after jump
 	- dap delete the current paragraph from within
-	- d}  delete from the cursor to the end of the paragraph
-	- d{  delete from the cursor to the beginning of the paragraph
+	- d} delete from the cursor to the end of the paragraph
+	- d{ delete from the cursor to the beginning of the paragraph
 	- :e ${file_name} to create a new buffer
 	- <leader><leader> switch between current and previous buffer
 	- <C-\><C-n> in terminal mode exits into "vim mode"
