@@ -124,4 +124,5 @@ Panes:
 	- <prefix>\ split vertically
 	- <prefix><S-\> split horizontally
 	- <prefix>{arrow} move panes
+	- <prefix>x to kill split pane after confirmation
 
