@@ -4,8 +4,7 @@
 
 runtime! plugins.vim
 runtime! include/keybindings.vim
-runtime! include/rust.vim
-runtime! include/ts_js.vim
+runtime! include/specifics.vim
 runtime! include/coc.vim
 
 " todo, https://tinyheero.github.io/2017/11/04/vim-cheatsheet.html add
@@ -22,14 +21,17 @@ end
 
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 filetype plugin indent on
+
 set updatetime=300         " better performance according to CoC
 set cmdheight=1            " : command bottom bar height 
-set autoindent             " Turns off Vim Mode Display because lightline plugin already handles it
+set autoindent             " enable indentation 
+set shiftwidth=4           " set indenting spaces 
+set tabstop=4              " set tab spaces 
 set nowrap
 set encoding=utf-8
 set hidden                 " hides instead of closes buffers, important for plugins
 set scrolloff=5
-set noshowmode
+set noshowmode             " Turns off Vim Mode Display because lightline plugin already handles it
 set number                 " shows absolute number at cursor
 set relativenumber
 set colorcolumn=100 

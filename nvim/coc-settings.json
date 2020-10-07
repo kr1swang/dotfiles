@@ -1,22 +1,24 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "json",
-    "yaml",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "codeLens.enable": true,
-  "rust-analyzer.inlayHints.chainingHints": true,
-  "prettier.semi": false,
-  "prettier.singleQuote": true,
-  "prettier.disableSuccessMessage": true,
-  "eslint.autoFixOnSave": true,
-  "eslint.filetypes": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ]
+    "coc.preferences.formatOnSaveFiletypes": [
+        "json",
+        "yaml",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "codeLens.enable": true,
+    "rust-analyzer.inlayHints.chainingHints": true,
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "prettier.disableSuccessMessage": true,
+    "prettier.tabWidth": 4,
+    "yaml.format.enable": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.filetypes": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ]
 }

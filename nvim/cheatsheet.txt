@@ -79,6 +79,8 @@ Plugin/coc
 	- <leader>gp next diagnostic
 	- <leader>gn previous diagnostic
 	- <S-k> show documentation at cursor
+	- if something breaks from PlugUpdate, all plugins are pulled by git, so just go into 
+	plugin paths and use a git reset --hard
 
 Plugin/vim-peekaboo
 	- if the window size bugs out, use <C-w>_ to reset the window
