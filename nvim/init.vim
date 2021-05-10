@@ -68,4 +68,8 @@ if (match($TERM, "-256color") != -1) && (match($TERM, "screen-256color") == -1)
   set termguicolors
 endif
 
+" disable .netrwhist file
+" https://stackoverflow.com/questions/9850360/what-is-netrwhist
+let g:netrw_dirhistmax = 0
+
 " solarized, woodland, twilight, -gruvbox-dark-pale <--- things to try

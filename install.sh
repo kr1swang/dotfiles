@@ -53,8 +53,8 @@ install_shell() {
 	brew tap homebrew/cask-fonts
 
 	brew install powerlevel9k
-	brew cask install font-meslolg-nerd-font
-	brew cask install font-fira-code-nerd-font
+	brew install font-meslo-lg-nerd-font
+	brew install font-fira-code-nerd-font
 }
 
 install_neovim() {
