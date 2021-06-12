@@ -22,6 +22,9 @@ end
 " https://vi.stackexchange.com/questions/10124/what-is-the-difference-between-filetype-plugin-indent-on-and-filetype-indent
 filetype plugin indent on
 
+" disable network file history https://stackoverflow.com/questions/9850360/what-is-netrwhist 
+let g:netrw_dirhistmax=0
+
 set updatetime=300         " better performance according to CoC
 set cmdheight=1            " : command bottom bar height 
 set autoindent             " enable indentation 

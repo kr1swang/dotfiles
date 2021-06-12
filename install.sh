@@ -8,13 +8,13 @@ main() {
 	get_arch
 	ARCH="$RETVAL"
 
-	install_homebrew
-	install_terminal
-	install_shell
+	#install_homebrew
+	#install_terminal
+	#install_shell
 	install_neovim
-	install_languages
-	install_tools
-	setup_git
+	#install_languages
+	#install_tools
+	#setup_git
 }
 
 install_homebrew() {
@@ -26,9 +26,10 @@ install_homebrew() {
 
 install_terminal() {
 	# install alacritty terminal and terminfo
-	brew cask install alacritty
+	brew install alacritty || true
 	ensure downloader https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info /Applications/Alacritty.app/Contents/Resources/alacritty.info
-	tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
+	info "setting terminal tic, sudo required"
+	sudo tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
 	info "configuring terminal"
 	sym_link $ROOT_PATH/.alacritty.yml ~/.alacritty.yml
 	if [[ $ARCH == *"darwin"* ]]; then
@@ -39,12 +40,12 @@ install_terminal() {
 
 install_shell() {
 	# install environment tools and languages
-	brew install zsh zsh-completions
+	brew install zsh zsh-completions || true
 	info "configuring shell"
 	chsh -s /usr/local/bin/zsh
 
 	# install and setup antibody zsh plugin bundler
-	brew install getantibody/tap/antibody
+	brew install getantibody/tap/antibody || true
 	antibody bundle <.zsh_plugins.txt >~/.zsh_plugins.sh
 	antibody update
 
@@ -52,13 +53,14 @@ install_shell() {
 	brew tap sambadevi/powerlevel9k
 	brew tap homebrew/cask-fonts
 
-	brew install powerlevel9k
-	brew install font-meslo-lg-nerd-font
-	brew install font-fira-code-nerd-font
+	brew install powerlevel9k || true
+	brew install font-meslo-lg-nerd-font || true
+	brew install font-fira-code-nerd-font || true
 }
 
 install_neovim() {
-	brew install neovim ripgrep fzf
+	brew install --head neovim || true
+	brew install ripgrep fzf || true
 	info "configuring neovim"
 	sym_link $ROOT_PATH/nvim ~/.config/nvim
 	nvim --headless +PlugInstall +PlugClean +PlugUpdate +UpdateRemotePlugins +qall
@@ -67,7 +69,7 @@ install_neovim() {
 }
 
 install_languages() {
-	brew install go node yarn
+	brew install go node yarn || true
 
 	if ! which rustup >/dev/null 2>&1; then
 		curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -82,13 +84,13 @@ install_languages() {
 	else
 		rustup update
 	fi
+	# custom global settings
+	cp -f ./cargo-config.toml ~/.cargo/config.toml
 }
 
 install_tools() {
-	brew install kubectx hub
-	brew cask install google-cloud-sdk
+	brew install kubectx hub google-cloud-sdk visual-studio-code || true
 
-	brew cask install visual-studio-code
 	rm -rf ~/Library/Application\ Support/Code/User/keybindings.json
 	rm -rf ~/Library/Application\ Support/Code/User/settings.json
 	mkdir -p ~/Library/Application\ Support/Code/User
