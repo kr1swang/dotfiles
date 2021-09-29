@@ -1,5 +1,5 @@
 [profile.dev]
-split-debuginfo = "unpacked"
+#split-debuginfo = "unpacked"
 
 [build]
-target-dir = "~/.cargo/global_target"
+rustc-wrapper = "sccache"

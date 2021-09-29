@@ -7,6 +7,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'plasticboy/vim-markdown'
 " Plug 'mhinz/vim-crates'
 
 " Coc (for now)
@@ -39,11 +40,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Editor Tools
-Plug 'jiangmiao/auto-pairs'  " auto add paris for braces, parenthesis, etc
+Plug 'jiangmiao/auto-pairs'  " auto add pairs for braces, parenthesis, etc
 Plug 'tpope/vim-fugitive'    " Git Plugin
 Plug 'tpope/vim-surround'    " Surround Editing Tool
 Plug 'tpope/vim-commentary'  " Commenting
 Plug 'tpope/vim-repeat'      " . Repeat for certain plugins
+Plug 'tpope/vim-unimpaired'  " Shortcuts (mainly for Quickfix) 
 Plug 'junegunn/vim-peekaboo' " Register Visualizer
 
 call plug#end()

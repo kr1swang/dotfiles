@@ -2,19 +2,21 @@
 set -e
 ROOT_PATH=$(pwd -P)
 
+#! https://dev.to/joaovitor/exa-instead-of-ls-1onl
+
 main() {
 	downloader --check
 
 	get_arch
 	ARCH="$RETVAL"
 
-	#install_homebrew
-	#install_terminal
-	#install_shell
+	install_homebrew
+	install_terminal
+	install_shell
 	install_neovim
-	#install_languages
-	#install_tools
-	#setup_git
+	install_languages
+	install_tools
+	setup_git
 }
 
 install_homebrew() {
@@ -59,7 +61,7 @@ install_shell() {
 }
 
 install_neovim() {
-	brew install --head neovim || true
+	brew install neovim || true
 	brew install ripgrep fzf || true
 	info "configuring neovim"
 	sym_link $ROOT_PATH/nvim ~/.config/nvim
@@ -81,11 +83,14 @@ install_languages() {
 		rustup target add aarch64-apple-ios armv7-apple-ios x86_64-apple-ios
 		rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
 		rustup target add wasm32-unknown-unknown
+
+		# Install sccache
+		cargo install sccache --git https://github.com/paritytech/sccache.git
 	else
 		rustup update
 	fi
 	# custom global settings
-	cp -f ./cargo-config.toml ~/.cargo/config.toml
+	sym_link $ROOT_PATH/cargo-config.toml ~/.cargo/config.toml
 }
 
 install_tools() {
@@ -104,6 +109,11 @@ setup_git() {
 	git config --global alias.com commit
 	git config --global alias.st status
 	git config --global credential.helper osxkeychain
+	# Updated git requires a way to resolve divergent, this makes it so divergent branch pulls
+	# will only fast foward.  A diveragent branch will fail.  A normal thing to do is to pull a
+	# into your working copy, such as "git pull origin master".  A divergence can occur if the
+	# remote was force pushed with a missing ancestor from your local copy.
+	git config --global pull.ff only
 
 	if [ -z "$(git config --global --get user.email)" ]; then
 		echo "Git user.name:"
