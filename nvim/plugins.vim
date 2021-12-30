@@ -57,6 +57,10 @@ call plug#end()
 "   autocmd BufRead Cargo.toml call crates#toggle()
 " endif
 
+" fix markdown folding in neovim + mac
+" https://github.com/plasticboy/vim-markdown/issues/414 
+let g:vim_markdown_folding_style_pythonic = 1
+
 " Show Buffers on the top
 let g:airline#extensions#tabline#enabled = 1
 
