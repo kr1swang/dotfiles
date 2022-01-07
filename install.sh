@@ -80,7 +80,7 @@ install_languages() {
 
 		# Rust toolchains and commands
 		rustup component add clippy
-		rustup target add aarch64-apple-ios armv7-apple-ios x86_64-apple-ios
+		rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-darwin
 		rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
 		rustup target add wasm32-unknown-unknown
 
@@ -187,6 +187,9 @@ get_arch() {
 		_ostype=unknown-linux-gnu
 	elif [[ "$OSTYPE" == "darwin"* ]]; then
 		_ostype=apple-darwin
+	elif [[ "$OSTYPE" == "arm64"* ]]; then
+		# M1 Macos??
+		_ostype=arm64
 	else
 		err "$OSTYPE currently unsupported"
 	fi
