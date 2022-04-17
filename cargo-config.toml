@@ -2,4 +2,4 @@
 #split-debuginfo = "unpacked"
 
 [build]
-rustc-wrapper = "sccache"
+rustc-wrapper = "cachepot"

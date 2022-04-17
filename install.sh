@@ -2,8 +2,6 @@
 set -e
 ROOT_PATH=$(pwd -P)
 
-#! https://dev.to/joaovitor/exa-instead-of-ls-1onl
-
 main() {
 	downloader --check
 
@@ -13,28 +11,31 @@ main() {
 	install_homebrew
 	install_terminal
 	install_shell
-	install_neovim
 	install_languages
+	install_neovim
 	install_tools
 	setup_git
 }
 
 install_homebrew() {
-	if ! which brew >/dev/null 2>&1; then
+	if ! which /opt/homebrew/bin/brew >/dev/null 2>&1; then
 		info "Installing homebrew"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	fi
+	eval $(/opt/homebrew/bin/brew shellenv)
 }
 
 install_terminal() {
 	# install alacritty terminal and terminfo
+	# #NOTE as of v0.9.0 release, M1 builds are not available through 
+	# brew, so a manual clone of alacritty and 'make app', and copy to /Applications is required
 	brew install alacritty || true
 	ensure downloader https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info /Applications/Alacritty.app/Contents/Resources/alacritty.info
 	info "setting terminal tic, sudo required"
 	sudo tic -xe alacritty,alacritty-direct /Applications/Alacritty.app/Contents/Resources/alacritty.info
 	info "configuring terminal"
 	sym_link $ROOT_PATH/.alacritty.yml ~/.alacritty.yml
-	if [[ $ARCH == *"darwin"* ]]; then
+	if [[ $ARCH == *"darwin"* ]] || [[ $ARCH == *"arm64"* ]]; then
 		info "macOs detected, 'open' alacritty in finder to seed permissions"
 		open /Applications
 	fi
@@ -42,14 +43,17 @@ install_terminal() {
 
 install_shell() {
 	# install environment tools and languages
-	brew install zsh zsh-completions || true
-	info "configuring shell"
-	chsh -s /usr/local/bin/zsh
+	brew install fd rg bat exa tmux grex zoxide zsh-completions || true
 
 	# install and setup antibody zsh plugin bundler
 	brew install getantibody/tap/antibody || true
 	antibody bundle <.zsh_plugins.txt >~/.zsh_plugins.sh
 	antibody update
+
+	mkdir -p ~/.config 
+	sym_link $ROOT_PATH/.zshrc ~/.zshrc
+	sym_link $ROOT_PATH/zellij ~/.config/zellij
+	sym_link $ROOT_PATH/.tmux.conf ~/.tmux.conf
 
 	# install powerlevel9k and nerdfonts
 	brew tap sambadevi/powerlevel9k
@@ -64,6 +68,7 @@ install_neovim() {
 	brew install neovim || true
 	brew install ripgrep fzf || true
 	info "configuring neovim"
+	mkdir -p ~/.config 
 	sym_link $ROOT_PATH/nvim ~/.config/nvim
 	nvim --headless +PlugInstall +PlugClean +PlugUpdate +UpdateRemotePlugins +qall
 	# undo history path
@@ -71,21 +76,21 @@ install_neovim() {
 }
 
 install_languages() {
-	brew install go node yarn || true
+	brew install go node nvm yarn || true
 
 	if ! which rustup >/dev/null 2>&1; then
 		curl https://sh.rustup.rs -sSf | sh -s -- -y
-		source ~/.cargo/env
-		rustup default stable
+		eval $(cat ~/.cargo/env)
 
 		# Rust toolchains and commands
+		rustup default stable
+		rustup update nightly
 		rustup component add clippy
 		rustup target add aarch64-apple-ios x86_64-apple-ios aarch64-apple-darwin
 		rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android
 		rustup target add wasm32-unknown-unknown
+		rustup target add wasm32-unknown-unknown --toolchain nightly
 
-		# Install sccache
-		cargo install sccache --git https://github.com/paritytech/sccache.git
 	else
 		rustup update
 	fi
@@ -94,7 +99,12 @@ install_languages() {
 }
 
 install_tools() {
-	brew install kubectx hub google-cloud-sdk visual-studio-code || true
+	require cargo
+	require brew
+
+	brew install jq kubectx helm gh hub google-cloud-sdk visual-studio-code || true
+	cargo install --git https://github.com/paritytech/cachepot 
+	cargo install wrangler cargo-remote zellij
 
 	rm -rf ~/Library/Application\ Support/Code/User/keybindings.json
 	rm -rf ~/Library/Application\ Support/Code/User/settings.json
@@ -104,6 +114,7 @@ install_tools() {
 
 setup_git() {
 	# git settings/aliases
+	info "setting up git"
 	git config --global alias.co checkout
 	git config --global alias.br branch
 	git config --global alias.com commit
@@ -187,15 +198,12 @@ get_arch() {
 		_ostype=unknown-linux-gnu
 	elif [[ "$OSTYPE" == "darwin"* ]]; then
 		_ostype=apple-darwin
-	elif [[ "$OSTYPE" == "arm64"* ]]; then
-		# M1 Macos??
-		_ostype=arm64
 	else
-		err "$OSTYPE currently unsupported"
+		err "OS $OSTYPE currently unsupported"
 	fi
 
 	_cputype=$(uname -m)
-	[ $_cputype == "x86_64" ] || err "$_cputype currently unsupported"
+	[ $_cputype == "x86_64" ] || [ $_cputype == "arm64" ] || err "CPU $_cputype currently unsupported"
 
 	RETVAL=$_cputype-$_ostype
 }

@@ -49,6 +49,7 @@ nnoremap <leader>l <C-w><C-l>
 " ----------------------------
 
 " FZF Search Windows 
-map <C-p> :Files<CR>
+nmap <leader>/ :BLines<CR>
+nmap <leader>p :Files<CR>
 nmap <leader>; :Buffers<CR>
 noremap <leader>s :Rg<CR>
