@@ -1,7 +1,10 @@
-
 # zsh configuration
 SAVEHIST=100
 HISTFILE=~/.zsh_history
+
+# zsh functions and loading
+fpath=( ~/.zfuncs "${fpath[@]}" )
+autoload -Uz cb-remote 
 
 export EDITOR=nvim
 export GOPATH=$HOME/go
@@ -43,6 +46,7 @@ alias l='exa'
 alias la='exa -a'
 alias ll='exa -lah'
 alias ls='exa --color=auto'
+alias shfmt='shfmt -i 4'
 eval "$(zoxide init zsh)"
 
 # handle theme

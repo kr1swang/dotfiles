@@ -8,12 +8,15 @@ Plug 'rust-lang/rust.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'plasticboy/vim-markdown'
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 " Plug 'mhinz/vim-crates'
 
 " Coc (for now)
+" CocConfig (coc-settings.json) is read from the ~/.config/nvim path
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/coc-rust-analyzer', {'do': 'yarn install --frozen-lockfile'}
 Plug 'josa42/coc-go', {'do': 'yarn install --frozen-lockfile'}
+Plug 'josa42/coc-sh', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
@@ -81,6 +84,13 @@ let g:airline_powerline_fonts = 1
 "let g:LanguageClient_serverCommands = {
 "    \ 'rust': ['rust-analyzer'],
 "    \ }
+
+" shfmt settings
+if executable('shfmt')
+  let &l:formatprg='shfmt -i ' . &l:shiftwidth . ' -ln posix -sr -ci -s'
+endif
+let g:shfmt_extra_args = '-i 4'
+let g:shfmt_fmt_on_save = 1
 
 " FZF settings
 " search history

@@ -27,6 +27,8 @@ set cmdheight=1            " : command bottom bar height
 set autoindent             " enable indentation 
 set shiftwidth=4           " set indenting spaces 
 set tabstop=4              " set tab spaces 
+set softtabstop=4          " set tab cursor movement 
+set expandtab              " always replace tab with spaces 
 set nowrap
 set encoding=utf-8
 set hidden                 " hides instead of closes buffers, important for plugins
