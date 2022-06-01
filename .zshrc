@@ -5,6 +5,7 @@ HISTFILE=~/.zsh_history
 # zsh functions and loading
 fpath=( ~/.zfuncs "${fpath[@]}" )
 autoload -Uz cb-remote 
+autoload -Uz cp-agence-remote
 
 export EDITOR=nvim
 export GOPATH=$HOME/go
@@ -66,6 +67,5 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%F{249}%}\u2517\uf054%{%F{default}%
 #POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%{%B%F{black}%K{yellow}%} "$"%{%b%f%k%F{yellow}%} %{%f%}"
 POWERLEVEL9K_MODE='nerdfont-complete'
 source /opt/homebrew/opt/powerlevel9k/powerlevel9k.zsh-theme
-if [ -e /Users/macdenis/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/macdenis/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 export PATH="$PATH:/Users/denis/.foundry/bin"
