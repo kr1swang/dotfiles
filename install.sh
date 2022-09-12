@@ -9,10 +9,10 @@ main() {
     ARCH="$RETVAL"
 
     install_homebrew
-    install_terminal
-    install_shell
+    # install_terminal
+    # install_shell
     install_languages
-    install_neovim
+    # install_neovim
     install_tools
     setup_git
 }
@@ -100,17 +100,17 @@ install_languages() {
 }
 
 install_tools() {
-    require cargo
-    require brew
+    # require cargo
+    # require brew
 
     brew install shfmt jq kubectx helm gh hub google-cloud-sdk visual-studio-code || true
-    cargo install --git https://github.com/paritytech/cachepot
-    cargo install wrangler cargo-remote zellij
+    # cargo install --git https://github.com/paritytech/cachepot
+    # cargo install wrangler cargo-remote zellij
 
-    rm -rf ~/Library/Application\ Support/Code/User/keybindings.json
-    rm -rf ~/Library/Application\ Support/Code/User/settings.json
-    mkdir -p ~/Library/Application\ Support/Code/User
-    cp vscode/* ~/Library/Application\ Support/Code/User/
+    # rm -rf ~/Library/Application\ Support/Code/User/keybindings.json
+    # rm -rf ~/Library/Application\ Support/Code/User/settings.json
+    # mkdir -p ~/Library/Application\ Support/Code/User
+    # cp vscode/* ~/Library/Application\ Support/Code/User/
 }
 
 setup_git() {
